@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.6
+#!/usr/bin/env python3
 
 App = 'Spotimaster v3.4'
 Link = 'https://github.com/Intika-Linux-Spotify/Spotimaster'
