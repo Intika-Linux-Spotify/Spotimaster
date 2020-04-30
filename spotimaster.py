@@ -19,7 +19,7 @@ Link = 'https://github.com/Intika-Linux-Spotify/Spotimaster'
 # required packages are: dbus-python, requests, urllib3 ('pip3 install dbus-python requests urllib3')
 # required applications: spotifyd/spotify, spotty for web-api functions and dbus-send for openuri command
 # spotty is available here: https://github.com/michaelherger/spotty, git clone it then use 'cargo build --release'
-# you do need an an app-id to use spotty, you can generate it here https://developer.spotify.com/dashboard/applications/
+# you do need an app-id to use spotty, you can generate it here https://developer.spotify.com/dashboard/applications/
 # app-secret and web authorisations (redirects...) are not required.
 #
 # Note :
