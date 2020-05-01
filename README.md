@@ -1,11 +1,15 @@
 
-# Spotimaster v3.4
+# Spotimaster
 
 Control spotifyd/spotify with dbus and web-api...
 
 ![Alt text](screens-1.png?raw=true "Features")
 
 ![Alt text](screens-2.png?raw=true "Advanced")
+
+**Features not listed on the captures:**
+
+- isplaying
 
 # Install:   
 ```
@@ -17,7 +21,7 @@ Control spotifyd/spotify with dbus and web-api...
 # 3. Run 'chmod 755 ./spotimaster.py'
 # 4. Link or copy the application to bin folder with
 #    'ln -s ./spotimaster.py /usr/bin/spotimaster'
-#
+# 5. Install the required packages...  
 # required packages are: dbus-python, requests, urllib3 ('pip3 install dbus-python requests urllib3')
 # required applications: spotifyd/spotify, spotty for web-api functions and dbus-send for openuri 
 # command spotty is available here: https://github.com/michaelherger/spotty 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-App = 'Spotimaster v3.4'
+App = 'Spotimaster v3.5'
 Link = 'https://github.com/Intika-Linux-Spotify/Spotimaster'
 
 # Spotimaster
@@ -9,13 +9,13 @@ Link = 'https://github.com/Intika-Linux-Spotify/Spotimaster'
 
 #   
 # Install:   
-# 1. change the python value on the first line to match your version (using python3.6 by default)... 
+# 1. Change the python value on the first line to match your version (using python3.6 by default)... 
 #    this application require python3.x
 # 2. Check the required applications/packages bellow
 # 3. Run 'chmod 755 ./spotimaster.py'
 # 4. Link or copy the application to bin folder with
 #    'ln -s ./spotimaster.py /usr/bin/spotimaster'
-#
+# 5. Install the required packages...  
 # required packages are: dbus-python, requests, urllib3 ('pip3 install dbus-python requests urllib3')
 # required applications: spotifyd/spotify, spotty for web-api functions and dbus-send for openuri command
 # spotty is available here: https://github.com/michaelherger/spotty, git clone it then use 'cargo build --release'
@@ -86,6 +86,7 @@ if (not len(sys.argv) > 1) or (sys.argv[1] == '--help'):
     print('-love            save the current song to the library, please read the Web-API note bellow')
     print('-unlove          delete the current song from the library, please read the Web-API note bellow')
     print('-isloved         check if the current song was added to the library, please read the Web-API note bellow')
+    print('-isplaying       check if a song is beeing played, please read the Web-API note bellow')
     print('')
 
     print('-wopenuri        load song/playlist over spotify web-api examples:')
@@ -145,7 +146,7 @@ if ((sys.argv[1] != "-love") and (sys.argv[1] != "-playpause") and (sys.argv[1] 
     (sys.argv[1] != "-use-cache") and (sys.argv[1] != "-force") and (sys.argv[1] != "-clear") and (sys.argv[1] != "-superlove") and 
     (sys.argv[1] != "-spotify") and (sys.argv[1] != "--use-cache") and (sys.argv[1] != "--force") and (sys.argv[1] != "--spotify") and
     (sys.argv[1] != "--superlove") and (sys.argv[1] != "--clear") and (sys.argv[1] != "--quiet") and (sys.argv[1] != "-wopenuri") and
-    (sys.argv[1] != "-get-devices") and (sys.argv[1] != "-nostatus") and (sys.argv[1] != "--nostatus")):
+    (sys.argv[1] != "-get-devices") and (sys.argv[1] != "-nostatus") and (sys.argv[1] != "--nostatus") and (sys.argv[1] != "-isplaying")):
 
     arguments = ' '.join(sys.argv[1:])
 
@@ -285,7 +286,7 @@ if (sys.argv[1] == "-check"):
 
 #Prepare the access token for the Web-API
 if ((sys.argv[1] == "-love") or (sys.argv[1] == "-unlove") or (sys.argv[1] == "-isloved") or (sys.argv[1] == "-wplaypause") or (sys.argv[1] == "-wnext") or 
-    (sys.argv[1] == "-wprev") or (sys.argv[1] == "-wopenuri") or (sys.argv[1] == "-get-devices")):
+    (sys.argv[1] == "-wprev") or (sys.argv[1] == "-wopenuri") or (sys.argv[1] == "-get-devices") or (sys.argv[1] == "-isplaying")):
 
     if ((not len(sys.argv) > 2) and (spotty_params == '') and not force_cache):
         print('Please provide spotty parameters, check --help for more infos')
@@ -370,7 +371,6 @@ if ((sys.argv[1] == "-love") or (sys.argv[1] == "-unlove") or (sys.argv[1] == "-
         sys.exit(1)       
             
 #########################################################################################################################################
-
 
 if (sys.argv[1] == "-love"):
 
@@ -608,6 +608,46 @@ if (sys.argv[1] == "-wplaypause"):
             
     sys.exit(0)
 
+#########################################################################################################################################
+
+    # code to be used later on if required... 
+    #import spotipy
+    #from spotipy.oauth2 import SpotifyOAuth
+    #client = spotipy.Spotify(auth=access_token)
+    #res = client.devices() 
+    #pprint(res)
+    #client.start_playback(device_id='...', uris=['spotify:track:6gdLoMygLsgktydTQ71b15'])
+
+#########################################################################################################################################
+    
+if (sys.argv[1] == "-isplaying"):
+
+    if not quiet: print('Getting playback state...')
+    ####################################################
+    if not quiet: print('')
+
+    Headers = {"Authorization": "Bearer " + access_token}
+    
+    try:
+        resp = requests.get("https://api.spotify.com/v1/me/player", headers=Headers)
+        if not quiet: print(resp.text)
+        reqdata = json.loads(resp.text)
+        isPlaying = reqdata['is_playing']
+    except:
+        isPlaying = False
+    
+    if not quiet: print('Is playing:')
+    if isPlaying: 
+        if not nostatus: print('true')
+        if not quiet: print('')
+        sys.exit(0)
+    else: 
+        if not nostatus: print ('false')
+        if not quiet: print('')
+        sys.exit(1)
+        
+    sys.exit(0)
+    
 #########################################################################################################################################
     
 if (sys.argv[1] == "-wnext"):
