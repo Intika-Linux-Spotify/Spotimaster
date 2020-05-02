@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.6
 
-App = 'Spotimaster v3.5'
+App = 'Spotimaster v3.7'
 Link = 'https://github.com/Intika-Linux-Spotify/Spotimaster'
 
 # Spotimaster
@@ -34,11 +34,16 @@ Link = 'https://github.com/Intika-Linux-Spotify/Spotimaster'
 #   'spotty_params' bellow, leave empty if not used. 
 # - If you want to use this application's dbus function with an other player change 
 #   the playername bellow
+# - If a device id is set on the variable default_dev_id loading a song/playlist will be always done 
+#   on that device. And songs/playlist can be "initiated" on that device as well (work for spotifyd 
+#   but not for devices like google's speakers)... this variable work with -wopenuri option.
 #
 
+
+player='spotifyd'
 cache_location = '/tmp'
 spotty_params = ''
-player='spotifyd'
+default_dev_id = ''
 
 #########################################################################################################################################
 #########################################################################################################################################
@@ -761,8 +766,8 @@ if (sys.argv[1] == "-wopenuri"):
     Payload = {}
     Headers = {"Authorization": "Bearer " + access_token}
 
-    #needed for additional features...     
-    #params['device_id'] = 'xxxxxxxxxxxxxxxxxxx'
+    if default_dev_id != '':
+        Params['device_id'] = default_dev_id
 
     if 'track' in wopenuri_link:    Payload = {'uris':         [wopenuri_link]}
     else:                           Payload = {'context_uri':   wopenuri_link}

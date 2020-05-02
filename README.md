@@ -35,5 +35,8 @@ Control spotifyd/spotify with dbus and web-api...
 #   'spotty_params' bellow, leave empty if not used. 
 # - If you want to use this application's dbus function with an other player change 
 #   the playername bellow
+# - If a device id is set on the variable default_dev_id loading a song/playlist will be always done 
+#   on that device. And songs/playlist can be "initiated" on that device as well (work for spotifyd 
+#   but not for devices like google's speakers)... this variable work with -wopenuri option.
 #
 ```
