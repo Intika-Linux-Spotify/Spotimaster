@@ -482,7 +482,6 @@ if (sys.argv[1] == "-unlove"):
     else:
         if not nostatus: print('false')
         if not quiet: print('')
-        sys.exit(1)
     
     if not quiet: print('Delete current spotify song...')
     ####################################################
