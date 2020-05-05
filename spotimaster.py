@@ -147,7 +147,7 @@ if (not len(sys.argv) > 1) or (sys.argv[1] == '--help'):
     print('')
     print('                 examples:')
     print('\033[0;32;40m')
-    print('                 spotimaster -love -n MY-APP-NAME -c /tmp/spotty -t -i MY-APP-ID \\') 
+    print('                 spotimaster -love -n MY-APP-NAME -c /tmp/spotty -t -i MY-APP-ID -u USER -p PASSWORD \\') 
     print('                 --scope user-modify-playback-state,user-library-modify,user-read-currently-playing,user-read-playback-state')
     print('\033[0;37;40m')
     print('')
